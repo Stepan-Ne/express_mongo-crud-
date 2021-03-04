@@ -4,9 +4,10 @@ import Post from './Post.js';
 import router from './routes.js';
 
 const app = express();
+mongoose.set('useFindAndModify', false);
 
 const PORT = 5000;
-const DB_URL = 'mongodb+srv://userName:Password@cluster0.o870r.mongodb.net/db1?retryWrites=true&w=majority'
+const DB_URL = 'mongodb+srv://user:user@cluster0.o870r.mongodb.net/db1?retryWrites=true&w=majority'
 
 // express по умолчанию не может преобразовывать json
 // это необх указать

@@ -1,10 +1,11 @@
 import Post from './Post.js';
+import PostService from './PostService.js';
 
 class PostController {
   async create(req, res) {
+
     try {
-      const { author, title, content, picture } = req.body;
-      const post = await Post.create({ author, title, content, picture });
+      const post = await PostService.create(req.body);
       res.status(200).json(post);
     } catch (error) {
       res.status(500).json(error.message);
@@ -12,8 +13,9 @@ class PostController {
   }
 
   async getAll(req, res) {
+
     try {
-      const posts = await Post.find();
+      const posts = await PostService.getAll();
       res.json(posts);
     } catch (error) {
       res.status(500).json(error.message);
@@ -26,7 +28,7 @@ class PostController {
       if (!id) {
         res.status(400).json({ message: 'Id is not correct' });
       }
-      const post = await Post.findById(id);
+      const post = await PostService.getOne(id);
       res.json(post);
     } catch (error) {
       res.status(500).json(error.message);
@@ -39,7 +41,7 @@ class PostController {
       if (!post._id) {
         res.status(400).json({message: "Id is not correct"})
       }
-      const updatedPost = await Post.findByIdAndUpdate(post._id, post, {new: true})
+      const updatedPost = await PostService.update(post)
       res.json(updatedPost)
     } catch (error) {
       res.status(500).json(error.message);
@@ -52,7 +54,7 @@ class PostController {
       if (!id) {
         res.status(400).json({message: "Id is not correct"})
       }
-      const post = await Post.findOneAndDelete(id); 
+      const post = await PostService.delete(id); 
       res.json(post);
     } catch (error) {
       res.status(500).json(error.message);
